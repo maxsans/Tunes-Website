@@ -1,0 +1,119 @@
+@import "../../styles/variables.scss";
+
+.notFoundContainer {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.backgroundWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.content {
+  text-align: center;
+  z-index: 10;
+  max-width: 800px;
+  padding: $spacing-2xl;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: $spacing-lg;
+    max-width: 90vw;
+  }
+}
+
+.titleContainer {
+  margin-bottom: $spacing-3xl;
+
+  @media (max-width: $breakpoint-tablet) {
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+.title {
+  font-family: $font-family-base;
+  font-size: 8rem;
+  font-weight: 700;
+  color: $primary;
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 4px 20px rgba($primary, 0.3);
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: 6rem;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 4.5rem;
+  }
+}
+
+.subtitleContainer {
+  margin-bottom: $spacing-3xl;
+
+  @media (max-width: $breakpoint-tablet) {
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+.subtitle {
+  font-family: $font-family-text;
+  font-size: $font-size-2xl;
+  font-weight: 500;
+  color: rgba($primary, 0.8);
+  margin: 0;
+  line-height: 1.4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: $font-size-xl;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: $font-size-lg;
+    text-align: center;
+  }
+}
+
+.cursor {
+  display: inline-block;
+  width: 1ch;
+  color: $primary;
+  margin-left: 2px;
+}
+
+.buttonContainer {
+  animation: fadeInUp 0.6s ease-out;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,84 @@
+$color-primary: #5784ba;
+$color-secondary: #b6d8f2;
+$color-tertiary: #f7f6cf;
+$color-accent: #2d1023;
+$color-black: #000000;
+$color-white: #ffffff;
+$color-gradient: linear-gradient(135deg, #9ac8eb 0%, #5784ba 100%);
+
+$primary: $color-primary;
+$primaryGradient: $color-gradient;
+$onPrimary: $color-white;
+$secondary: $color-secondary;
+$onSecondary: $color-accent;
+$tertiary: $color-tertiary;
+$onTertiary: $color-accent;
+$background: #f7f7f8;
+$onBackground: $color-accent;
+$surface: $color-white;
+$onSurface: $color-accent;
+$error: #ff4b4b;
+$onError: #fff;
+
+// Typography
+$font-family-base: "Julius Sans One", sans-serif;
+$font-family-text: "Satoshi", sans-serif;
+$font-family-mono: "Fira Code", monospace;
+
+// Font size
+$font-size-2xs: 10px;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 24px;
+$font-size-3xl: 32px;
+$font-size-4xl: 40px;
+$font-size-5xl: 48px;
+$font-size-6xl: 60px;
+
+// Spacing
+$spacing-2xs: 2px;
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-2xl: 40px;
+$spacing-3xl: 60px;
+$spacing-4xl: 80px;
+
+// Border radius
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 20px;
+$radius-xl: 24px;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 16px rgba(87, 132, 186, 0.2);
+$shadow-lg: 0 8px 32px rgba(87, 132, 186, 0.3);
+$shadow-glassmorphism: 0 8px 32px rgba(87, 132, 186, 0.15),
+  0 2px 8px rgba(255, 255, 255, 0.1) inset;
+
+// Opacities
+$opacity-low: 0.1;
+$opacity-medium: 0.3;
+$opacity-high: 0.7;
+$opacity-disabled: 0.5;
+
+// Transitions
+$transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Breakpoints
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// Components specific
+$slider-width-desktop: 650px;
+$slider-padding: $spacing-sm;
+$slider-padding-mobile: 6px;

@@ -1,0 +1,106 @@
+@import "../../../styles/variables.scss";
+
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10%;
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      flex: 1;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 30px;
+
+      .titleText {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        flex: 1;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 10px;
+        h1 {
+          font-family: $font-family-base;
+          color: $primary;
+          font-size: 2.9rem;
+          font-weight: 500;
+          text-decoration: none;
+          display: flex;
+          letter-spacing: 0.02em;
+          margin: 0;
+        }
+        p {
+          font-family: $font-family-base;
+          color: $primary;
+          font-size: $font-size-lg;
+          font-weight: 500;
+          text-decoration: none;
+          display: flex;
+          letter-spacing: 0.02em;
+          margin: 0;
+        }
+      }
+    }
+
+    .logoBlock {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-desktop) {
+  .container .content {
+    padding: 0 9vw;
+    .title .titleText h1 {
+      font-size: 2.1rem;
+    }
+    .title .titleText p {
+      font-size: $font-size-base;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .container {
+    height: auto;
+    min-height: 100vh;
+  }
+  .container .content {
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 90px 0 0 0;
+    gap: $spacing-xl;
+
+    .title {
+      align-items: center;
+      justify-content: center;
+      gap: $spacing-lg;
+      .titleText {
+        align-items: center;
+        flex: 0;
+        h1 {
+          font-size: 2.6rem;
+        }
+        p {
+          font-size: $font-size-xl;
+        }
+      }
+    }
+  }
+}

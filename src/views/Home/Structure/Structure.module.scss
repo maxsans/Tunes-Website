@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  align-content: center;
+  flex-direction: column;
+  .title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .structureBox {
+    display: flex;
+    min-width: 90%;
+    align-content: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+
+    .titleMock {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .textBox {
+      font-size: 1.05rem;
+      display: flex;
+    }
+    .imgMock {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      margin-top: 0;
+
+      .mockSvg {
+        width: 100%;
+        max-width: 1100px;
+        height: auto;
+        border-radius: 18px;
+        margin: 0 auto;
+        display: block;
+        filter: drop-shadow(0 0 30px #9ac8eb) !important;
+        overflow: visible;
+      }
+    }
+  }
+}

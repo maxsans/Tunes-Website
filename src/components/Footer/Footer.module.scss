@@ -1,0 +1,236 @@
+@import "../../styles/variables.scss";
+
+.footer {
+  background: $secondary;
+  border-top: 1px solid rgba($primary, 0.1);
+  margin-top: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-2xl $spacing-lg $spacing-2xl;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: $spacing-3xl $spacing-md $spacing-xl;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: $spacing-2xl $spacing-sm $spacing-lg;
+  }
+}
+
+.mainContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-4xl;
+  margin-bottom: $spacing-xl;
+
+  @media (max-width: $breakpoint-tablet) {
+    grid-template-columns: 1fr;
+    gap: $spacing-3xl;
+    margin-bottom: $spacing-2xl;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    gap: $spacing-2xl;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.brandSection {
+  .brandName {
+    font-family: $font-family-base;
+    font-size: $font-size-3xl;
+    font-weight: 700;
+    color: $primary;
+    margin: 0;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 10px rgba($primary, 0.2);
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: $font-size-2xl;
+    }
+  }
+}
+
+.linksSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-2xl;
+
+  @media (max-width: $breakpoint-mobile) {
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+  }
+}
+
+.sectionTitle {
+  font-family: $font-family-base;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $primary;
+  margin: 0 0 $spacing-md 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contactInfo {
+  .emailLink {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    background: none;
+    border: none;
+    padding: $spacing-xs 0;
+    font-family: $font-family-base;
+    font-size: $font-size-sm;
+    color: rgba($onSecondary, 0.9);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+
+    &:hover {
+      color: $onSecondary;
+      transform: translateX(2px);
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+.socialLinks {
+  .socialButtons {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  .socialButton {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    background: none;
+    border: none;
+    padding: $spacing-xs 0;
+    font-family: $font-family-base;
+    font-size: $font-size-sm;
+    color: rgba($onSecondary, 0.9);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+
+    &:hover {
+      color: $onSecondary;
+      transform: translateX(2px);
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba($primary, 0.3) 50%,
+    transparent 100%
+  );
+  margin: $spacing-xl 0;
+
+  @media (max-width: $breakpoint-mobile) {
+    margin: $spacing-xl 0;
+  }
+}
+
+.bottomSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $spacing-lg;
+
+  @media (max-width: $breakpoint-tablet) {
+    flex-direction: column;
+    gap: $spacing-md;
+    text-align: center;
+  }
+}
+
+.copyright {
+  .copyrightText {
+    font-family: $font-family-base;
+    font-size: $font-size-xs;
+    color: rgba($onSecondary, 0.7);
+    margin: 0 0 $spacing-xs 0;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: $font-size-2xs;
+    }
+  }
+
+  .madeWith {
+    font-family: $font-family-base;
+    font-size: $font-size-xs;
+    color: rgba($onSecondary, 0.7);
+    margin: 0;
+
+    .heart {
+      color: #ff6b6b;
+      display: inline-block;
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: $font-size-2xs;
+    }
+  }
+}
+
+.legalLinks {
+  .version {
+    font-family: $font-family-mono;
+    font-size: $font-size-2xs;
+    color: rgba($onSecondary, 0.6);
+    background: rgba($onSecondary, 0.1);
+    padding: $spacing-2xs $spacing-xs;
+    border-radius: $radius-sm;
+    border: 1px solid rgba($onSecondary, 0.15);
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 10px;
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center top,
+    rgba($onSecondary, 0.05) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
