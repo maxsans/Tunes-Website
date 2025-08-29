@@ -1,0 +1,93 @@
+.mockviewSection {
+   
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: transparent;
+  padding: 5vh 1rem 0 1rem; 
+}
+
+.textContainer {
+  margin-bottom: 3rem;
+  text-align: center;
+  z-index: 2;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 0;
+}
+
+.mockSvg {
+  width: 90%;
+  max-width: 1100px;
+  height: auto;
+  border-radius: 18px;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(0 0 30px #9ac8eb) !important;
+  overflow: visible;
+}
+
+@media (max-width: 700px) {
+  .mockviewSection {
+    padding: 5vh 0.4rem 0 0.4rem; 
+    
+  }
+
+  .textContainer {
+    margin-bottom: 1.8rem;
+  }
+
+  .title {
+    font-size: 1.65rem;
+    flex-wrap: wrap;
+    line-height: 1.2;
+    margin-bottom: 1.1rem;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .svgContainer {
+    margin-top: 1.2rem;
+  }
+
+  .mockSvg {
+    width: 90vw;
+    max-width: 98vw;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px 0 #9ac8eb55;
+  }
+}

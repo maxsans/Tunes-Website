@@ -1,0 +1,214 @@
+@import "../../../styles/variables.scss";
+
+.aboutContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20vh;
+  padding-bottom: 30vh;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: $breakpoint-tablet) {
+    min-height: auto;
+    padding-top: $spacing-3xl;
+    padding-bottom: $spacing-3xl;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding-top: $spacing-2xl;
+    padding-bottom: 20vh;
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: $spacing-3xl;
+  align-items: center;
+  max-width: 1400px;
+  width: 100%;
+  text-align: center;
+
+  @media (max-width: $breakpoint-tablet) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.textSection {
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
+  margin: 0 5%;
+  gap: 5%;
+  opacity: 0;
+
+  @media (max-width: $breakpoint-tablet) {
+    flex-direction: column;
+    width: 90%;
+    margin: 0;
+    gap: $spacing-2xl;
+    text-align: center;
+    gap: 5%;
+  }
+}
+
+.title {
+  font-family: $font-family-base;
+  font-size: $font-size-5xl;
+  font-weight: 700;
+  color: $primary;
+  margin: 0 0 $spacing-xl 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 20px rgba($primary, 0.2);
+  text-align: center;
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: $spacing-lg;
+
+    font-size: $font-size-4xl;
+    margin-bottom: $spacing-lg;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-md;
+    line-height: 1.3;
+  }
+}
+
+.subtitle {
+  font-family: $font-family-base;
+  font-size: $font-size-lg;
+  color: rgba($primary, 0.8);
+  margin: 0;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  text-align: center;
+  white-space: pre-wrap;
+  word-break: break-word;
+  flex: 1;
+  max-width: 600px;
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: $font-size-base;
+    max-width: 100%;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: $font-size-sm;
+    line-height: 1.8;
+    padding: 0 $spacing-sm;
+  }
+}
+
+.cursor {
+  color: $primary;
+  font-weight: 300;
+  animation: blinkCursor 0.9s steps(1) infinite;
+  display: inline-block;
+  margin-left: 2px;
+}
+
+@keyframes blinkCursor {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.imageSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex: 1;
+
+  @media (max-width: $breakpoint-tablet) {
+    order: 2;
+    margin-top: $spacing-lg;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    margin-top: $spacing-md;
+  }
+}
+
+.aboutImage {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  border-radius: $radius-lg;
+  transition: all $transition-normal;
+
+  @media (max-width: $breakpoint-tablet) {
+    max-width: 350px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    max-width: 90%;
+    border-radius: $radius-md;
+  }
+
+  &:hover {
+    transform: translateY(-6px) scale(1.01);
+
+    @media (max-width: $breakpoint-mobile) {
+      transform: translateY(-3px) scale(1.005);
+    }
+  }
+}
+
+.aboutContainer::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 8%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle,
+    rgba($secondary, 0.08) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.aboutContainer::after {
+  content: "";
+  position: absolute;
+  bottom: 20%;
+  right: 12%;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba($primary, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 80px;
+    height: 80px;
+  }
+}

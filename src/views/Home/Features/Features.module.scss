@@ -1,0 +1,79 @@
+@import "../../../styles/variables.scss";
+
+.featuresContainer {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  padding: $spacing-2xl 0 0 0;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: $spacing-xl 0 0 0;
+    min-height: auto;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: $spacing-lg 0 0 0;
+  }
+}
+
+.title {
+  font-family: $font-family-base;
+  font-size: $font-size-5xl;
+  font-weight: 700;
+  color: $primary;
+  margin: 0 0 $spacing-3xl 0;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 20px rgba($primary, 0.2);
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: $font-size-4xl;
+    margin-bottom: $spacing-2xl;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-xl;
+    line-height: 1.3;
+  }
+}
+
+.cursor {
+  color: $primary;
+  font-weight: 300;
+  animation: blinkCursor 0.9s steps(1) infinite;
+  display: inline-block;
+  margin-left: 2px;
+}
+
+@keyframes blinkCursor {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  opacity: 0;
+
+  @media (max-width: $breakpoint-tablet) {
+    gap: $spacing-lg;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    gap: $spacing-md;
+  }
+}
