@@ -1,0 +1,39 @@
+.burgerBtn {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+
+  span {
+    display: block;
+    width: 28px;
+    height: 3.2px;
+    border-radius: 2px;
+    background: #5784ba;
+    margin: 4px 0;
+    transition: transform 0.35s cubic-bezier(0.77, 0, 0.18, 1),
+      opacity 0.22s cubic-bezier(0.77, 0, 0.18, 1), background 0.16s;
+    position: relative;
+  }
+}
+.opened {
+  span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+  }
+  span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-3px) scaleX(0.5);
+  }
+  span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+  }
+}

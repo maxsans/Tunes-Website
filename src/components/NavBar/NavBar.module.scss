@@ -1,0 +1,246 @@
+@import "../../styles/variables.scss";
+
+$navbar-height-desktop: 70px;
+$navbar-radius-desktop: 35px;
+$navbar-height-mobile: 60px;
+$navbar-radius-mobile: 30px;
+$navbar-max-width: 1000px;
+$navbar-side-margin-desktop: 5vw;
+$navbar-side-margin-mobile: 5vw;
+$z-nav-shape: 1;
+$z-bar-bg: 2;
+$z-bar-content: 11;
+$z-mobile-overlay: 20;
+$z-mobile-cross: 21;
+
+.navbarWrapper {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  max-width: 100vw;
+  z-index: $z-bar-content;
+  justify-content: center;
+  display: flex;
+}
+
+.navbarWrapperMobile {
+  position: fixed;
+  top: 25px;
+  left: 0;
+  width: 100vw;
+  height: $navbar-height-mobile;
+  z-index: $z-bar-content;
+  pointer-events: auto;
+  justify-content: center;
+  display: flex;
+}
+
+.navbarAnimRoot {
+  position: relative;
+  background: transparent;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  will-change: width, height, border-radius, transform;
+  z-index: $z-bar-content;
+  animation: fadeInMenu 0.4s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+@keyframes fadeInMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.whiteBg {
+  position: absolute;
+  inset: 0;
+  box-shadow: 0px 4px 28px rgba(0, 0, 0, 0.07);
+  background: $surface;
+  border-radius: 50%;
+  z-index: $z-bar-bg;
+  pointer-events: none;
+  transition: border-radius 0.3s;
+}
+
+.navbarContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: $z-bar-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 36px;
+  gap: 32px;
+  opacity: 0;
+  filter: blur(18px);
+}
+.navbarContentMobile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: $z-bar-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  gap: 12px;
+  opacity: 0;
+}
+
+.logo {
+  font-family: $font-family-base;
+  color: $primary;
+  font-size: 2.3rem;
+  text-decoration: none;
+  transition: color 0.18s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.logoMobile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-family-base;
+  font-size: 1.12rem;
+  color: $primary;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.mobileBrand {
+  font-size: 1.7rem;
+  color: $primary;
+  font-family: $font-family-base;
+}
+
+.navbarLinks {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  justify-content: space-evenly;
+  a,
+  .navLink {
+    font-family: $font-family-base;
+    color: $primary;
+    font-size: 1.1rem;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.18s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    &:hover {
+      color: $onSurface;
+    }
+  }
+}
+
+.mobileMenuOverlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: $surface;
+}
+.overlayBgSvg {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: flex-start;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mobileMenuContent {
+  width: 100%;
+  max-width: 340px;
+  height: 100%;
+  margin: 18px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  z-index: 1;
+  justify-content: center;
+}
+
+.mobileMenuLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $font-family-base;
+  font-size: 1.34rem;
+  color: $primary;
+  text-decoration: none;
+  margin-bottom: 12px;
+  opacity: 0;
+}
+
+.mobileMenuBrand {
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: $primary;
+}
+
+.mobileMenuLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  justify-content: space-evenly;
+
+  a,
+  .navLink {
+    font-family: $font-family-base;
+    color: $primary;
+    font-size: 1.13rem;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    transition: color 0.18s, background 0.18s;
+    padding: 8px 0;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      color: $onSurface;
+      background: $secondary;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .navbarWrapper {
+    display: none !important;
+  }
+}
