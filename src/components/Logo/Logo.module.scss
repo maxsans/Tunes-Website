@@ -1,0 +1,13 @@
+.logoContainer {
+  width: 132px;
+  height: 148px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  overflow: visible;
+}
+
+.blueShadow {
+  filter: drop-shadow(0 0 30px #9ac8eb);
+}
