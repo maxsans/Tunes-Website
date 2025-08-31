@@ -1,0 +1,16 @@
+{
+  "short_name": "Tunes",
+  "name": "Tunes - Music Application",
+  "description": "Modern music application with beautiful design",
+  "icons": [
+    {
+      "src": "Logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "70x70"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#5784BA",
+  "background_color": "#0A0A0B"
+}
