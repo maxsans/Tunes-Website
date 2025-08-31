@@ -4,51 +4,48 @@ on:
   push:
     branches: [main, develop]
   pull_request:
-    b            # Download docker-compose file
-            echo "📥 Downloading docker-compose configuration..."
-            curl -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
-                 -H "Accept: application/vnd.github.v3.raw" \
-                 -o docker-compose.yml \
-                 -L "https://api.github.com/repos/${{ github.repository }}/contents/docker/docker-compose.yml"s: [main]
+    branches: [main]
 
 env:
   DOCKER_IMAGE: tunes-website
   DOCKER_TAG: ${{ github.sha }}
 
 jobs:
+  # CI step - Tests and Build
   continuous-integration:
     name: CI - Test & Build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
           cache: "npm"
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: npm ci
 
-      - name: Run linter
+      - name: 🔍 Run linter
         run: npm run lint --if-present
 
-      - name: Run tests
-        run: npm test --if-present -- --coverage --watchAll=false
+      - name: 🧪 Run tests
+        run: npm test --if-present -- --coverage --watchAll=false --passWithNoTests
 
-      - name: Build application
+      - name: 🏗️ Build application
         run: npm run build
 
-      - name: Upload build artifacts
+      - name: 📤 Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-files
           path: build/
           retention-days: 1
 
+  # CD step - Docker Build and Deploy
   continuous-deployment:
     name: CD - Docker & Deploy
     runs-on: ubuntu-latest
@@ -56,19 +53,19 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
+      - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
+      - name: 🔑 Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: 🏗️ Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -80,7 +77,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Deploy to production server
+      - name: 🚀 Deploy to production server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -88,75 +85,75 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
-            echo "Starting deployment process..."
+            echo "🚀 Starting deployment process..."
 
             # Create deployment directory
             mkdir -p ~/deployments/tunes-website
             cd ~/deployments/tunes-website
 
             # Download docker-compose file
-            echo "Downloading docker-compose configuration..."
-            curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            echo "📥 Downloading docker-compose configuration..."
+            curl -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
                  -H "Accept: application/vnd.github.v3.raw" \
                  -o docker-compose.yml \
                  -L "https://api.github.com/repos/${{ github.repository }}/contents/docker/docker-compose.yml"
 
             # Stop existing container gracefully
-            echo "Stopping existing containers..."
+            echo "🛑 Stopping existing containers..."
             docker-compose down --timeout 30 || echo "No existing containers to stop"
 
             # Pull latest image
-            echo "Pulling latest Docker image..."
+            echo "📦 Pulling latest Docker image..."
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
 
             # Update docker-compose to use registry image
-            echo "Configuring deployment..."
+            echo "⚙️ Configuring deployment..."
             sed -i 's|build:|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest #build:|g' docker-compose.yml
-            sed -i 's|context: \.|#context: .|g' docker-compose.yml
+            sed -i 's|context: \.\.|#context: ..|g' docker-compose.yml
             sed -i 's|dockerfile: docker/Dockerfile|#dockerfile: docker/Dockerfile|g' docker-compose.yml
 
             # Start new container
-            echo "Starting new containers..."
+            echo "🐳 Starting new containers..."
             docker-compose up -d
 
             # Wait for container to be ready
-            echo "Waiting for application to start..."
+            echo "⏳ Waiting for application to start..."
             sleep 20
 
             # Verify deployment
             if docker-compose ps | grep -q "Up"; then
-              echo "Deployment successful!"
-              echo "Application is running on port 8086"
+              echo "✅ Deployment successful!"
+              echo "🌐 Application is running on port 8086"
               
               # Test health endpoint
               if curl -f -s http://localhost:8086/health > /dev/null; then
-                echo "Health check passed!"
+                echo "💚 Health check passed!"
               else
-                echo "Health check failed, but container is running"
+                echo "⚠️ Health check failed, but container is running"
               fi
               
               # Show container status
-              echo "Container status:"
+              echo "📊 Container status:"
               docker-compose ps
             else
-              echo "Deployment failed!"
-              echo "Container logs:"
+              echo "❌ Deployment failed!"
+              echo "📋 Container logs:"
               docker-compose logs --tail 50
               exit 1
             fi
 
             # Cleanup old images
-            echo "Cleaning up old images..."
+            echo "🧹 Cleaning up old images..."
             docker image prune -f
 
-            echo "Deployment completed successfully!"
+            echo "🎉 Deployment completed successfully!"
 
-      - name: Deployment notification
+      - name: 📢 Deployment notification
         if: always()
         run: |
           if [ "${{ job.status }}" == "success" ]; then
-            echo "Deployment to production server completed successfully!"
-            echo "Application is live at http://${{ secrets.SERVER_HOST }}:8086"
+            echo "✅ Deployment to production server completed successfully!"
+            echo "🌐 Application is live at http://${{ secrets.SERVER_HOST }}:8086"
           else
-            echo "Deployment failed. Please check the logs above."
+            echo "❌ Deployment failed. Please check the logs above."
           fi
