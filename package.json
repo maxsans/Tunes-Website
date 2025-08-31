@@ -33,7 +33,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "docker:build": "docker build -t tunes-website -f docker/Dockerfile .",
-    "docker:run": "docker run -d --name tunes-website -p 8086:80 tunes-website",
+    "docker:run": "docker run -d --name tunes-website -p 8088:80 tunes-website",
     "docker:stop": "docker stop tunes-website && docker rm tunes-website",
     "deploy:local": "node scripts/deploy-local.js"
   },

@@ -6,7 +6,7 @@ const path = require("path");
 // Configuration
 const DOCKER_IMAGE = "tunes-website";
 const CONTAINER_NAME = "tunes-website";
-const PORT = "8086";
+const PORT = "8088";
 
 // Colors for console output
 const colors = {
