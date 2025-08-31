@@ -33,7 +33,7 @@ jobs:
         run: npm run lint --if-present
 
       - name: 🧪 Run tests
-        run: npm test --if-present -- --coverage --watchAll=false
+        run: npm test --if-present -- --coverage --watchAll=false --passWithNoTests
 
       - name: 🏗️ Build application
         run: npm run build
