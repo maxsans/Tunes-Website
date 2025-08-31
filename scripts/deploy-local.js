@@ -85,7 +85,7 @@ async function runContainer() {
     "--name",
     CONTAINER_NAME,
     "-p",
-    `${PORT}:80`,
+    `0.0.0.0:${PORT}:80`,
     "--restart",
     "unless-stopped",
     DOCKER_IMAGE,

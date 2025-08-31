@@ -7,7 +7,7 @@ services:
       dockerfile: docker/Dockerfile
     container_name: tunes-website
     ports:
-      - "8088:80"
+      - "0.0.0.0:8088:80"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
