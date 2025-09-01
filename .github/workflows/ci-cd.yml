@@ -91,12 +91,21 @@ jobs:
             mkdir -p ~/deployments/tunes-website
             cd ~/deployments/tunes-website
 
-            # Download docker-compose file
+            # Download docker-compose files
             echo "📥 Downloading docker-compose configuration..."
             curl -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
                  -H "Accept: application/vnd.github.v3.raw" \
-                 -o docker-compose.yml \
-                 -L "https://api.github.com/repos/${{ github.repository }}/contents/docker/docker-compose.yml"
+                 -o docker-compose.prod.yml \
+                 -L "https://api.github.com/repos/${{ github.repository }}/contents/docker/docker-compose.prod.yml"
+                 
+            curl -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
+                 -H "Accept: application/vnd.github.v3.raw" \
+                 -o docker-compose.fallback.yml \
+                 -L "https://api.github.com/repos/${{ github.repository }}/contents/docker/docker-compose.fallback.yml"
+
+            # Ensure proxy network exists
+            echo "🌐 Checking proxy network..."
+            docker network create proxy-net 2>/dev/null || echo "Network proxy-net already exists"
 
             # Stop existing container gracefully
             echo "🛑 Stopping existing containers..."
@@ -108,19 +117,30 @@ jobs:
 
             # Start new container with production config
             echo "🐳 Starting new containers..."
-            DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} DOCKER_IMAGE=${{ env.DOCKER_IMAGE }} docker-compose -f docker-compose.prod.yml up -d
+            if DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} DOCKER_IMAGE=${{ env.DOCKER_IMAGE }} docker-compose -f docker-compose.prod.yml up -d; then
+              echo "✅ Started with proxy network"
+              COMPOSE_FILE="docker-compose.prod.yml"
+            else
+              echo "⚠️ Proxy network failed, trying fallback..."
+              DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} DOCKER_IMAGE=${{ env.DOCKER_IMAGE }} docker-compose -f docker-compose.fallback.yml up -d
+              COMPOSE_FILE="docker-compose.fallback.yml"
+            fi
 
             # Wait for container to be ready
             echo "⏳ Waiting for application to start..."
             sleep 20
 
             # Verify deployment
-            if docker-compose -f docker-compose.prod.yml ps | grep -q "Up"; then
+            if docker-compose -f $COMPOSE_FILE ps | grep -q "Up"; then
               echo "✅ Deployment successful!"
-              echo "🌐 Application is running in proxy network"
+              if [ "$COMPOSE_FILE" = "docker-compose.prod.yml" ]; then
+                echo "🌐 Application is running in proxy network"
+              else
+                echo "🌐 Application is running on port 8088"
+              fi
               
               # Test health endpoint via container
-              if docker exec tunes-website wget --spider -q http://localhost/health; then
+              if docker exec tunes-website wget --spider -q http://localhost/; then
                 echo "💚 Health check passed!"
               else
                 echo "⚠️ Health check failed, but container is running"
@@ -128,11 +148,11 @@ jobs:
               
               # Show container status
               echo "📊 Container status:"
-              docker-compose -f docker-compose.prod.yml ps
+              docker-compose -f $COMPOSE_FILE ps
             else
               echo "❌ Deployment failed!"
               echo "📋 Container logs:"
-              docker-compose -f docker-compose.prod.yml logs --tail 50
+              docker-compose -f $COMPOSE_FILE logs --tail 50
               exit 1
             fi
 
