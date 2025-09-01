@@ -1,1 +1,12 @@
-@import url("https:
+// Google Fonts - Julius Sans One & Fira Code
+@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&display=swap");
+
+// Satoshi from Fontshare
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap");
+
+// Font face fallbacks (if needed)
+@font-face {
+  font-family: "Satoshi-fallback";
+  src: local("Inter"), local("system-ui"), local("-apple-system");
+  font-display: swap;
+}
