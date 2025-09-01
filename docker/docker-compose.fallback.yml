@@ -4,6 +4,8 @@ services:
   tunes-web:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest
     container_name: tunes-website
+    ports:
+      - "8088:80"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
@@ -13,9 +15,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    networks:
-      - proxy-net
-
-networks:
-  proxy-net:
-    external: true

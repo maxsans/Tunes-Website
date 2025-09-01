@@ -21,9 +21,11 @@ $error: #ff4b4b;
 $onError: #fff;
 
 // Typography
-$font-family-base: "Julius Sans One", sans-serif;
-$font-family-text: "Satoshi", sans-serif;
-$font-family-mono: "Fira Code", monospace;
+$font-family-base: "Julius Sans One", serif;
+$font-family-text: "Satoshi", "Inter", -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, sans-serif;
+$font-family-mono: "Fira Code", "SF Mono", "Monaco", "Inconsolata",
+  "Roboto Mono", monospace;
 
 // Font size
 $font-size-2xs: 10px;
