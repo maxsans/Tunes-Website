@@ -100,33 +100,27 @@ jobs:
 
             # Stop existing container gracefully
             echo "🛑 Stopping existing containers..."
-            docker-compose down --timeout 30 || echo "No existing containers to stop"
+            docker-compose -f docker-compose.prod.yml down --timeout 30 || echo "No existing containers to stop"
 
             # Pull latest image
             echo "📦 Pulling latest Docker image..."
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
 
-            # Update docker-compose to use registry image
-            echo "⚙️ Configuring deployment..."
-            sed -i 's|build:|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest #build:|g' docker-compose.yml
-            sed -i 's|context: \.\.|#context: ..|g' docker-compose.yml
-            sed -i 's|dockerfile: docker/Dockerfile|#dockerfile: docker/Dockerfile|g' docker-compose.yml
-
-            # Start new container
+            # Start new container with production config
             echo "🐳 Starting new containers..."
-            docker-compose up -d
+            DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} DOCKER_IMAGE=${{ env.DOCKER_IMAGE }} docker-compose -f docker-compose.prod.yml up -d
 
             # Wait for container to be ready
             echo "⏳ Waiting for application to start..."
             sleep 20
 
             # Verify deployment
-            if docker-compose ps | grep -q "Up"; then
+            if docker-compose -f docker-compose.prod.yml ps | grep -q "Up"; then
               echo "✅ Deployment successful!"
-              echo "🌐 Application is running on port 8088"
+              echo "🌐 Application is running in proxy network"
               
-              # Test health endpoint
-              if curl -f -s http://localhost:8088/health > /dev/null; then
+              # Test health endpoint via container
+              if docker exec tunes-website wget --spider -q http://localhost/health; then
                 echo "💚 Health check passed!"
               else
                 echo "⚠️ Health check failed, but container is running"
@@ -134,11 +128,11 @@ jobs:
               
               # Show container status
               echo "📊 Container status:"
-              docker-compose ps
+              docker-compose -f docker-compose.prod.yml ps
             else
               echo "❌ Deployment failed!"
               echo "📋 Container logs:"
-              docker-compose logs --tail 50
+              docker-compose -f docker-compose.prod.yml logs --tail 50
               exit 1
             fi
 
@@ -153,7 +147,7 @@ jobs:
         run: |
           if [ "${{ job.status }}" == "success" ]; then
             echo "✅ Deployment to production server completed successfully!"
-            echo "🌐 Application is live at http://${{ secrets.SERVER_HOST }}:8088"
+            echo "🌐 Application is live at https://tunes-app.com"
           else
             echo "❌ Deployment failed. Please check the logs above."
           fi
